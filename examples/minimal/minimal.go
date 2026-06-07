@@ -10,11 +10,7 @@ func main() {
 		LogMode: app.LogModeSimple,
 	})
 
-	window := app.NewWindow(app.WindowOptions{
-		ID:     "Main view",
-		Width:  600,
-		Height: 400,
-		HTML: `<!DOCTYPE html>
+	html := `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -23,7 +19,13 @@ func main() {
   <body>
     <p>Hello, world!</p>
   </body>
-</html>`,
+</html>`
+
+	window := app.NewWindow(app.WindowOptions{
+		ID:     "Main view",
+		Width:  600,
+		Height: 400,
+		HTML:   html,
 	})
 
 	myApp.OpenWindow(window)

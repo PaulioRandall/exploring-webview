@@ -12,14 +12,15 @@ fi
 printUsage() {
 	println "Usage:"
 	println "\t" "Terminal is cleared unless '-noclear' flag is provided"
-	println "\t" "./godo [-noclear] [help]" "\t\t" "Print usage"
-	println "\t" "./godo [-noclear] clean " "\t\t" "Clean Go caches"
-	println "\t" "./godo [-noclear] tidy  " "\t\t" "Tidy Go mod"
-	println "\t" "./godo [-noclear] format" "\t\t" "Format all Go code"
-	println "\t" "./godo [-noclear] build " "\t\t" "tidy -> format -> build"
-	println "\t" "./godo [-noclear] test  " "\t\t" "tidy -> format -> test -> vet"
-	println "\t" "./godo [-noclear] run   " "\t\t" "tidy -> format -> run"
-	println "\t" "./godo [-noclear] audit " "\t\t" "clean -> tidy -> format -> build -> test -> vet"
+	println "\t" "./godo [-noclear] [help]  " "\t\t" "Print usage"
+	println "\t" "./godo [-noclear] clean   " "\t\t" "Clean Go caches"
+	println "\t" "./godo [-noclear] tidy    " "\t\t" "Tidy Go mod"
+	println "\t" "./godo [-noclear] format  " "\t\t" "Format all Go code"
+	println "\t" "./godo [-noclear] build   " "\t\t" "tidy -> format -> build"
+	println "\t" "./godo [-noclear] test    " "\t\t" "tidy -> format -> test -> vet"
+	println "\t" "./godo [-noclear] run     " "\t\t" "tidy -> format -> run"
+	println "\t" "./godo [-noclear] audit   " "\t\t" "clean -> tidy -> format -> build -> test -> vet"
+	println "\t" "./godo [-noclear] example1" "\t\t" "Runs example 1: Minimal app"
 }
 
 println() {
@@ -46,7 +47,7 @@ godoFormat() {
 }
 
 godoTest() {
-	println "go test ./... -timeout "2s""
+	println "go test ./... -timeout \"2s\""
 	go test ./... -timeout "2s"
 }
 
@@ -55,9 +56,9 @@ godoBuild() {
 	go build -o /dev/null .
 }
 
-godoRun() {
-	println "go run ./main.go"
-	go run ./main.go
+godoRunExample() {
+	println "go run ./examples/$1/..."
+	go run "./examples/$1/..."
 }
 
 godoVet() {
@@ -114,6 +115,17 @@ if [[ "$1" == "audit" ]]; then
 	godoBuild
 	godoTest
 	godoVet
+	exit 0
+fi
+
+if [[ "$1" == "example1" ]]; then
+	godoRunExample minimal
+	exit 0
+fi
+
+
+if [[ "$1" == "purego" ]]; then
+	godoRunExample purego
 	exit 0
 fi
 

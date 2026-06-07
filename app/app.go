@@ -1,8 +1,8 @@
 package app
 
+// TODO: Should we use more meaningful string names instead?
 type LogMode int
 
-// TODO: Should we use more meaningful string names instead?
 const (
 	// LogModeError logs only errors being logged to output.
 	LogModeError LogMode = iota
@@ -38,7 +38,7 @@ type App struct {
 
 func NewApp(options AppOptions) *App {
 	a := &App{
-		name: orElseString(options.Name, "Unnamed App"),
+		name: stringOrDefault(options.Name, "Unnamed App"),
 		// TODO: panic if bad log mode.
 		logMode: options.LogMode,
 	}
