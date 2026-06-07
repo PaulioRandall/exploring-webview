@@ -1,19 +1,19 @@
 package main
 
 import (
-	"github/PaulioRandall/exploring-webview/app"
-	"github/PaulioRandall/exploring-webview/window"
+	"github.com/PaulioRandall/exploring-webview/app"
 )
 
 func main() {
-
-	app := app.New(app.Options{
-		Name: "Example Application",
+	myApp := app.NewApp(app.AppOptions{
+		Name:    "Example 1",
+		LogMode: app.LogModeSimple,
 	})
 
-	win := window.New(window.Options{
+	window := app.NewWindow(app.WindowOptions{
+		ID:     "Main view",
 		Width:  600,
-		height: 400,
+		Height: 400,
 		HTML: `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,9 +26,9 @@ func main() {
 </html>`,
 	})
 
-	app.OpenWindow(win)
+	myApp.OpenWindow(window)
 
-	if e := app.Run(); e != nil {
+	if e := myApp.Run(); e != nil {
 		panic(e)
 	}
 }
