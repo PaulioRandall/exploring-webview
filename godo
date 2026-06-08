@@ -57,8 +57,13 @@ godoBuild() {
 }
 
 godoRunExample() {
-	println "go run ./examples/$1/..."
-	go run "./examples/$1/..."
+	println "CGO_ENABLED=0 go run ./examples/$1/$1.go"
+	CGO_ENABLED=0 go run "./examples/$1/$1.go"
+}
+
+godoRunCgoExample() {
+	println "CGO_ENABLED=1 go run ./examples/$1/$1.go"
+	CGO_ENABLED=1 go run "./examples/$1/$1.go"
 }
 
 godoVet() {
@@ -126,6 +131,26 @@ fi
 
 if [[ "$1" == "purego" ]]; then
 	godoRunExample purego
+	exit 0
+fi
+
+if [[ "$1" == "gogpu" ]]; then
+	godoRunExample gogpu
+	exit 0
+fi
+
+if [[ "$1" == "gg" ]]; then
+	godoRunExample gg
+	exit 0
+fi
+
+if [[ "$1" == "wgpu" ]]; then
+	GOOS=js GOARCH=wasm CGO_ENABLED=0 go run ./examples/wgpu/wgpu.go
+	exit 0
+fi
+
+if [[ "$1" == "ui" ]]; then
+	godoRunExample ui
 	exit 0
 fi
 
